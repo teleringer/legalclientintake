@@ -55,67 +55,63 @@
     .btn:active{transform:translateY(1px)}
     .btn-primary{background:var(--teal);color:#fff;box-shadow:0 12px 26px rgba(15,118,110,.18)}
     .btn-primary:hover{background:var(--teal2)}
-    .btn-outline{background:#fff;border:1px solid #0f172a22;color:#0f172a}
+    .btn-outline{background:#fff;border-color:#0f172a22;color:#0f172a}
     .btn-outline:hover{border-color:#0f172a55;box-shadow:0 10px 22px rgba(2,8,23,.08)}
     .btn-gold{background:var(--gold);color:#0b1220}
     .btn-gold:hover{filter:brightness(.98);box-shadow:0 12px 26px rgba(246,212,75,.25)}
 
-    /* =========================
-       NEW FIXED HEADER
-       ========================= */
-    header#mainHeader{
-      position:fixed;
-      top:0; left:0; right:0;
-      z-index:1000;
-      padding:14px 0;
-      background:transparent;
-      transition: background .2s ease, box-shadow .2s ease;
-    }
-    header#mainHeader.scrolled{
-      background:rgba(255,255,255,.92);
+    /* Header */
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.78);
       backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(226,232,240,.75);
-      box-shadow:0 4px 14px rgba(2,8,23,.06);
+      border-bottom:1px solid rgba(226,232,240,.65);
+      transition: .2s background, .2s border-color;
     }
-    .headerInner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    /* When scrolling, header becomes dark and we swap to light logo */
+    .topbar.scrolled{
+      background: rgba(11,18,32,.92);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
       gap:14px;
+      padding:12px 0;
     }
-    .logoWrap{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-    }
-    .logoWrap img{
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brand img{
       height:44px;
       width:auto;
-      transition: .2s ease;
+      transition: .15s opacity;
     }
-    .navButtons{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
+    .navlinks{display:flex;align-items:center;gap:10px}
+    .navlinks a{font-weight:700;color:#0f172a;text-decoration:none}
+    .navlinks a.link{font-weight:700;color:#0f172a99}
+    .navlinks a.link:hover{color:#0f172a}
+
+    /* Scrolled header link colors */
+    .topbar.scrolled .navlinks a{color:#ffffff}
+    .topbar.scrolled .navlinks a.link{color:rgba(255,255,255,.78)}
+    .topbar.scrolled .navlinks a.link:hover{color:#ffffff}
+    .topbar.scrolled .btn-outline{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.20);
+      color:#fff;
+    }
+    .topbar.scrolled .btn-outline:hover{
+      border-color: rgba(255,255,255,.35);
+      box-shadow:0 10px 22px rgba(2,8,23,.22)
     }
 
-    /* Offset page content for fixed header */
-    .pageTopSpacer{height:78px}
-
-    /* =========================
-       HERO (updated)
-       ========================= */
+    /* Hero */
     .hero{
-      padding:46px 0 26px;
+      padding:42px 0 26px;
+      /* Optional: if you later add a hero background image, uncomment and set the file:
+      background: url("images/hero-bg.jpg") center/cover no-repeat;
+      */
     }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:28px;
-      align-items:center;
-    }
+    .heroGrid{display:grid;grid-template-columns: 1.1fr .9fr;gap:28px;align-items:center}
     h1{font-size:52px;line-height:1.06;margin:12px 0 12px}
     .sub{font-size:17px;color:var(--muted);max-width:54ch}
     .checks{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px}
@@ -128,21 +124,25 @@
     }
     .heroActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 
-    /* New hero image card */
-    .heroImageCard{
+    /* HERO IMAGE BOX (right side) */
+    .heroImageWrap{
+      background: linear-gradient(135deg, rgba(15,118,110,.10), rgba(246,212,75,.08));
+      border:1px solid rgba(226,232,240,.75);
       border-radius:22px;
-      overflow:hidden;
-      border:1px solid rgba(226,232,240,.85);
       box-shadow:var(--shadow);
-      background:linear-gradient(135deg, rgba(15,118,110,.10), rgba(246,212,75,.08));
-      padding:14px;
+      padding:18px;
+      overflow:hidden;
+    }
+    .heroImageCard{
+      background:#fff;
+      border-radius:18px;
+      border:1px solid rgba(226,232,240,.90);
+      overflow:hidden;
     }
     .heroImageCard img{
       width:100%;
       height:auto;
-      border-radius:18px;
       display:block;
-      box-shadow:0 18px 45px rgba(2,8,23,.10);
     }
 
     /* Feature icons row */
@@ -335,7 +335,10 @@
     }
     .footerGrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px}
     .footerBrand{display:flex;gap:12px;align-items:flex-start}
-    .footerBrand img{height:40px;width:auto}
+    .footerBrand img{
+      height:44px;
+      width:auto;
+    }
     .footerP{margin:10px 0 0;color:rgba(255,255,255,.78);font-size:14px}
     .footerCol h5{margin:0 0 10px}
     .footerCol a{display:block;color:rgba(255,255,255,.78);text-decoration:none;margin:8px 0;font-size:14px}
@@ -363,30 +366,30 @@
       .pricingGrid{grid-template-columns:1fr}
       .footerGrid{grid-template-columns:1fr}
       .row2{grid-template-columns:1fr}
-      header#mainHeader .navButtons a.link{display:none}
+      .navlinks .link{display:none}
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Fixed Header -->
-  <header id="mainHeader">
+  <!-- Header -->
+  <div class="topbar" id="topbar">
     <div class="container">
-      <div class="headerInner">
-        <a class="logoWrap" href="#top" aria-label="Legal Client Intake">
-          <img id="siteLogo" src="/images/logo-dark.png" alt="Legal Client Intake" />
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="Legal Client Intake">
+          <!-- Default = dark logo (for light background) -->
+          <img id="brandLogo" src="images/logo-LCI-dark.png" alt="Legal Client Intake" />
         </a>
-        <div class="navButtons">
+        <div class="navlinks">
+          <a class="link" href="#how">How it works</a>
+          <a class="link" href="#pricing">Pricing</a>
           <a class="btn btn-primary" href="#demo">Book Demo</a>
           <a class="btn btn-outline" href="#pricing">Get Pricing</a>
         </div>
       </div>
     </div>
-  </header>
-
-  <!-- Spacer so fixed header doesn't overlap content -->
-  <div class="pageTopSpacer"></div>
+  </div>
 
   <!-- Hero -->
   <div id="top" class="hero">
@@ -411,8 +414,11 @@
           </div>
         </div>
 
-        <div class="heroImageCard" aria-label="Hero preview">
-          <img src="/images/hero.png" alt="Legal Client Intake hero preview" />
+        <!-- Right-side hero image box -->
+        <div class="heroImageWrap" aria-label="Hero image">
+          <div class="heroImageCard">
+            <img src="images/hero.png" alt="Legal Client Intake hero image" />
+          </div>
         </div>
       </div>
 
@@ -429,14 +435,14 @@
             <div class="icon">⚡</div>
             <div>
               <h3>Fast Setup</h3>
-              <p>Get live quickly with a guided onboarding and a clear after-hours call flow.</p>
+              <p>Get live quickly with guided onboarding and a clear after-hours call flow.</p>
             </div>
           </div>
           <div class="iconCard">
             <div class="icon">🛡️</div>
             <div>
               <h3>Secure Handling</h3>
-              <p>Caller details can be delivered to your team in a controlled, consistent format.</p>
+              <p>Caller details delivered to your team in a controlled, consistent format.</p>
             </div>
           </div>
         </div>
@@ -487,7 +493,7 @@
           <div class="badge">1</div>
           <div>
             <h3>Caller speaks with an intelligent assistant</h3>
-            <p>Callers are greeted professionally. The conversation is natural and focused on gathering the right facts.</p>
+            <p>Callers are greeted professionally. The conversation stays natural and focused on gathering the right facts.</p>
           </div>
         </div>
 
@@ -575,7 +581,7 @@
     </div>
   </section>
 
-  <!-- Pricing (REWRITTEN as single offer) -->
+  <!-- Pricing -->
   <section id="pricing">
     <div class="container">
       <h2 class="sectionTitle">Simple Monthly Pricing.</h2>
@@ -600,18 +606,18 @@
             <p class="valueLine"><strong>Cancel anytime.</strong> No long-term contracts. Onboarding included.</p>
 
             <ul class="bullets">
-              <li><span class="tick">✓</span><div><strong>After-hours call handling</strong><br/><span class="small">Your callers get a consistent, professional intake experience.</span></div></li>
+              <li><span class="tick">✓</span><div><strong>After-hours call handling</strong><br/><span class="small">Callers get a consistent, professional intake experience.</span></div></li>
               <li><span class="tick">✓</span><div><strong>Custom intake questions</strong><br/><span class="small">Customize by practice area. Update your questions anytime.</span></div></li>
-              <li><span class="tick">✓</span><div><strong>Structured intake summaries</strong><br/><span class="small">Get the key details in a clean, readable format for fast review.</span></div></li>
+              <li><span class="tick">✓</span><div><strong>Structured intake summaries</strong><br/><span class="small">Key details in a clean, readable format for fast review.</span></div></li>
               <li><span class="tick">✓</span><div><strong>Transcripts & recording access</strong><br/><span class="small">Review what was said and follow up with confidence.</span></div></li>
               <li><span class="tick">✓</span><div><strong>Urgent call routing options</strong><br/><span class="small">Route urgent matters based on your preferences.</span></div></li>
               <li><span class="tick">✓</span><div><strong>Consult scheduling option</strong><br/><span class="small">If you want it, connect scheduling to your availability.</span></div></li>
             </ul>
 
             <div class="fineprint">
-              <strong>Revenue-protection / fair use:</strong>
+              <strong>Fair use / service quality:</strong>
               This plan is designed for typical small-firm after-hours usage.
-              If your firm consistently operates at unusually high call volume, we’ll recommend a custom plan so service quality remains excellent.
+              If your firm consistently runs at unusually high call volume, we’ll recommend a custom plan so service quality stays excellent.
             </div>
 
             <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
@@ -620,7 +626,7 @@
             </div>
           </div>
 
-          <!-- Trust / conversion psychology -->
+          <!-- Trust -->
           <div class="trust">
             <div>
               <h4>Why one plan?</h4>
@@ -634,7 +640,7 @@
                 <ul class="trustList">
                   <li>• No contract. Cancel anytime.</li>
                   <li>• White-glove onboarding included.</li>
-                  <li>• Set your preferences once, refine anytime.</li>
+                  <li>• Set preferences once, refine anytime.</li>
                 </ul>
               </div>
 
@@ -665,42 +671,42 @@
       <div class="faq" id="faq">
         <div class="faqItem">
           <div class="faqQ">How long does setup take? <span class="chev">▾</span></div>
-          <div class="faqA">Most firms are up and running within 24–48 hours. We handle technical configuration while you customize your intake questions and preferences.</div>
+          <div class="faqA">Most firms are up and running within 24–48 hours. We handle the technical configuration while you customize your intake questions and preferences.</div>
         </div>
 
         <div class="faqItem">
           <div class="faqQ">Can I customize the intake questions? <span class="chev">▾</span></div>
-          <div class="faqA">Yes. You control what information is collected, can tailor questions by practice area, and update your intake flow anytime.</div>
+          <div class="faqA">Absolutely. You have full control over what information is collected. Customize questions by practice area, add conditional logic, and update your forms anytime without technical assistance.</div>
         </div>
 
         <div class="faqItem">
           <div class="faqQ">Can calls be transferred to an attorney? <span class="chev">▾</span></div>
-          <div class="faqA">Yes. You can set preferences for urgent matters, including routing options and immediate alerts based on the details collected.</div>
+          <div class="faqA">Yes. You decide what happens on urgent calls—transfer to an attorney, trigger an immediate alert, or route the caller to the next best step based on your preferences.</div>
         </div>
 
         <div class="faqItem">
           <div class="faqQ">How does it handle urgent or emotional callers? <span class="chev">▾</span></div>
-          <div class="faqA">It’s designed to recognize urgency and distress, respond with empathy, prioritize appropriately, and follow your routing or alert preferences.</div>
+          <div class="faqA">Our intake flow is designed to recognize urgency and emotional distress. It responds with empathy, prioritizes appropriately, and can immediately alert you or transfer the caller based on your preferences.</div>
         </div>
 
         <div class="faqItem">
           <div class="faqQ">Is caller data secure? <span class="chev">▾</span></div>
-          <div class="faqA">We take security seriously and use secure delivery methods for intake summaries. Your firm controls who receives access and where intake messages are delivered.</div>
+          <div class="faqA">Yes. We use secure transport and controlled access so intake summaries are only delivered to authorized people at your firm. During onboarding, we configure where summaries go and who receives them.</div>
         </div>
 
         <div class="faqItem">
           <div class="faqQ">Does it support multiple languages? <span class="chev">▾</span></div>
-          <div class="faqA">Yes. The assistant can support multiple languages. Ask during your demo and we’ll configure the language experience your firm needs.</div>
+          <div class="faqA">Yes. The system can communicate in Spanish, Mandarin, and several other languages. Language detection can be configured to ensure callers can communicate comfortably.</div>
         </div>
 
         <div class="faqItem">
           <div class="faqQ">Can I access call transcripts and summaries? <span class="chev">▾</span></div>
-          <div class="faqA">Yes. You can review structured summaries and transcripts/recordings so you can follow up confidently and consistently.</div>
+          <div class="faqA">Yes. You can access structured summaries and (when enabled) transcripts/recordings, so you can review details and follow up confidently.</div>
         </div>
 
         <div class="faqItem">
           <div class="faqQ">Can I turn the service on and off during business hours? <span class="chev">▾</span></div>
-          <div class="faqA">Yes. You can control when the after-hours intake experience is active and adjust schedules as your firm’s needs change.</div>
+          <div class="faqA">Yes. Set an after-hours schedule, enable/disable instantly, or adjust hours any time—so calls route exactly the way you want.</div>
         </div>
       </div>
     </div>
@@ -713,7 +719,6 @@
       <p class="sectionSub">Book a demo and see how Legal Client Intake can transform your practice.</p>
 
       <div class="formCard">
-        <!-- NOTE: This is a front-end-only form. Replace action/method when you wire up your backend. -->
         <form action="#" method="post" onsubmit="return handleDemoSubmit(event)">
           <div class="row2">
             <div>
@@ -783,7 +788,7 @@
       <div class="footerGrid">
         <div>
           <div class="footerBrand">
-            <img src="/images/logo-light.png" alt="Legal Client Intake" />
+            <img src="images/logo-LCI-light.png" alt="Legal Client Intake" />
           </div>
           <p class="footerP">Intelligent after-hours intake for law firms. Never miss a potential client again.</p>
         </div>
@@ -841,25 +846,28 @@
     // Footer year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Header logo swap on scroll
-    const mainHeader = document.getElementById("mainHeader");
-    const siteLogo = document.getElementById("siteLogo");
-    window.addEventListener("scroll", function(){
-      if(window.scrollY > 50){
-        mainHeader.classList.add("scrolled");
-        siteLogo.src = "/images/logo-light.png";
-      } else {
-        mainHeader.classList.remove("scrolled");
-        siteLogo.src = "/images/logo-dark.png";
-      }
-    });
-
     // Demo form (front-end placeholder)
     function handleDemoSubmit(e){
       e.preventDefault();
       alert("Thanks! Your demo request is captured on this page only right now. Next step is wiring this form to your backend.");
       return false;
     }
+
+    // Logo swap on scroll (dark logo on light header, light logo on dark header)
+    const topbar = document.getElementById('topbar');
+    const brandLogo = document.getElementById('brandLogo');
+
+    function syncHeader(){
+      const scrolled = window.scrollY > 20;
+      topbar.classList.toggle('scrolled', scrolled);
+      if(scrolled){
+        brandLogo.src = "images/logo-LCI-light.png";
+      }else{
+        brandLogo.src = "images/logo-LCI-dark.png";
+      }
+    }
+    window.addEventListener('scroll', syncHeader, { passive: true });
+    syncHeader();
   </script>
 </body>
 </html>
