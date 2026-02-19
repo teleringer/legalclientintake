@@ -3,906 +3,846 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Legal Client Intake — Stop Missing New Client Calls</title>
-  <meta name="description" content="After-hours intake handled instantly—capture structured case details and schedule consultations automatically." />
+  <title>Legal Client Intake | Stop Missing New Client Calls</title>
+  <meta name="description" content="AI-powered after-hours legal intake that answers every call, captures case details, and helps schedule consultations—so small law firms stop losing cases to missed calls." />
   <meta name="robots" content="index,follow" />
+  <link rel="icon" href="data:," />
 
   <style>
     :root{
-      --bgTop:#eaf6f4;
-      --bg:#ffffff;
+      --bg:#f6fbfb;
       --text:#0f172a;
-      --muted:#5b6778;
-      --line:#e6edf2;
-      --shadow: 0 14px 34px rgba(15,23,42,.10);
-      --shadow2: 0 10px 22px rgba(15,23,42,.08);
-      --radius:18px;
-
-      --teal:#0f8f7b;
-      --tealDark:#0b6f60;
-      --mint:#e7f6f2;
-
-      --yellow:#ffd84d;
-      --navH:74px;
-      --max:1180px;
+      --muted:#475569;
+      --card:#ffffff;
+      --border:#e2e8f0;
+      --shadow:0 18px 45px rgba(2, 8, 23, .08);
+      --teal:#0f766e;
+      --teal2:#0b5f59;
+      --tealSoft:#e7f6f5;
+      --gold:#f6d44b;
+      --navy:#0b1220;
+      --radius:16px;
+      --max:1120px;
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html,body{height:100%}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
-      background:
-        linear-gradient(180deg, var(--bgTop) 0%, #f6fbfa 12%, #ffffff 34%, #ffffff 100%);
+      background: radial-gradient(1200px 500px at 50% 0%, #dff6f3 0%, var(--bg) 55%, #ffffff 100%);
+      line-height:1.45;
     }
-    a{color:inherit;text-decoration:none}
+    a{color:inherit}
     img{max-width:100%;display:block}
 
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
-    .topbar{
-      position:sticky;top:0;z-index:30;
-      background:rgba(255,255,255,.88);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(230,237,242,.85);
-    }
-    .nav{
-      height:var(--navH);
-      display:flex;align-items:center;justify-content:space-between;
-      gap:14px;
-    }
-
-    .brand{
-      display:flex;align-items:center;gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .brandMark{
-      width:34px;height:34px;border-radius:10px;
-      background: linear-gradient(135deg, rgba(15,143,123,.16), rgba(15,143,123,.05));
-      border:1px solid rgba(15,143,123,.18);
-      display:grid;place-items:center;
-    }
-    .brandMark svg{width:22px;height:22px}
-    .actions{display:flex;gap:10px;align-items:center}
-
+    .container{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--muted);font-size:13px}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid #1f2937;
-      background:#fff;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:12px;
+      border:1px solid transparent;
       font-weight:700;
-      box-shadow: 0 2px 0 rgba(0,0,0,.12);
+      text-decoration:none;
       cursor:pointer;
+      transition:.15s transform, .15s box-shadow, .15s background, .15s border-color;
       white-space:nowrap;
+      user-select:none;
     }
-    .btn.primary{
-      background:var(--teal);
-      color:#fff;
-      border-color:transparent;
-      box-shadow: 0 10px 20px rgba(15,143,123,.20);
-    }
-    .btn.primary:hover{background:var(--tealDark)}
-    .btn.ghost{
-      border-color:#1f2937;
-      background:#fff;
-    }
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{background:var(--teal);color:#fff;box-shadow:0 12px 26px rgba(15,118,110,.18)}
+    .btn-primary:hover{background:var(--teal2)}
+    .btn-outline{background:#fff;border-color:#0f172a22;color:#0f172a}
+    .btn-outline:hover{border-color:#0f172a55;box-shadow:0 10px 22px rgba(2,8,23,.08)}
+    .btn-gold{background:var(--gold);color:#0b1220}
+    .btn-gold:hover{filter:brightness(.98);box-shadow:0 12px 26px rgba(246,212,75,.25)}
 
-    /* HERO */
-    .hero{
-      padding:54px 0 18px;
+    /* Header */
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid rgba(226,232,240,.65);
     }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:34px;
-      align-items:center;
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:14px;
+      padding:12px 0;
     }
-    .h1{
-      font-size:56px;
-      line-height:1.05;
-      margin:0 0 14px;
-      letter-spacing:-.6px;
-    }
-    .lead{
-      margin:0 0 22px;
-      color:var(--muted);
-      font-size:18px;
-      line-height:1.7;
-      max-width:56ch;
-    }
-    .checks{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:12px}
-    .checks li{display:flex;gap:10px;align-items:center;color:#1f2937;font-weight:650}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brand img{height:40px;width:auto}
+    .navlinks{display:flex;align-items:center;gap:10px}
+    .navlinks a{font-weight:700;color:#0f172a;text-decoration:none}
+    .navlinks a.link{font-weight:700;color:#0f172a99}
+    .navlinks a.link:hover{color:#0f172a}
+
+    /* Hero */
+    .hero{padding:42px 0 26px}
+    .heroGrid{display:grid;grid-template-columns: 1.1fr .9fr;gap:28px;align-items:center}
+    h1{font-size:52px;line-height:1.06;margin:12px 0 12px}
+    .sub{font-size:17px;color:var(--muted);max-width:54ch}
+    .checks{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+    .checks li{display:flex;gap:10px;align-items:flex-start;color:#0f172ab3}
     .check{
-      width:20px;height:20px;border-radius:999px;
-      background:rgba(15,143,123,.10);
-      border:1px solid rgba(15,143,123,.28);
-      display:grid;place-items:center;
-      flex:0 0 auto;
+      width:22px;height:22px;border-radius:8px;background:var(--tealSoft);
+      display:inline-flex;align-items:center;justify-content:center;flex:none;
+      border:1px solid rgba(15,118,110,.18);
+      margin-top:1px;
     }
-    .check svg{width:14px;height:14px;fill:var(--teal)}
-    .ctaRow{display:flex;gap:12px;flex-wrap:wrap}
-
-    .heroCard{
-      background:#fff;
-      border:1px solid var(--line);
+    .heroActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .mock{
+      background: linear-gradient(135deg, rgba(15,118,110,.12), rgba(246,212,75,.10));
+      border:1px solid rgba(226,232,240,.75);
       border-radius:22px;
-      padding:18px;
       box-shadow:var(--shadow);
-    }
-    .heroImg{
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(230,237,242,.9);
-      background:linear-gradient(135deg, rgba(15,143,123,.08), rgba(0,0,0,0));
-      aspect-ratio: 16 / 10;
-      display:grid;
-      place-items:center;
-    }
-    .heroImg .placeholder{
-      color:#7b8796;
-      font-weight:700;
       padding:18px;
-      text-align:center;
-      line-height:1.4;
-    }
-
-    /* TRUST STRIP */
-    .triple{
-      padding:24px 0 8px;
-    }
-    .tripleRow{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-    }
-    .pillCard{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:18px 18px;
-      box-shadow:var(--shadow2);
-      text-align:center;
-    }
-    .iconCircle{
-      width:46px;height:46px;border-radius:999px;
-      background:rgba(15,143,123,.12);
-      border:1px solid rgba(15,143,123,.22);
-      display:grid;place-items:center;
-      margin:0 auto 10px;
-    }
-    .iconCircle svg{width:22px;height:22px;stroke:var(--teal);fill:none;stroke-width:2}
-    .pillCard h3{margin:0 0 6px;font-size:14px;letter-spacing:.2px}
-    .pillCard p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
-
-    /* SECTIONS */
-    section{padding:52px 0}
-    .centerTitle{
-      text-align:center;
-      margin-bottom:28px;
-    }
-    .h2{
-      font-size:44px;
-      margin:0 0 10px;
-      letter-spacing:-.4px;
-    }
-    .sub{
-      margin:0 auto;
-      color:var(--muted);
-      max-width:70ch;
-      line-height:1.7;
-      font-size:15px;
-    }
-
-    /* PROBLEM CARDS */
-    .cards2{
-      margin-top:26px;
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:18px;
-    }
-    .card{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:20px;
-      box-shadow:var(--shadow2);
-    }
-    .cardTop{
-      display:flex;gap:12px;align-items:flex-start;margin-bottom:10px
-    }
-    .miniIcon{
-      width:44px;height:44px;border-radius:10px;
-      display:grid;place-items:center;
-      border:1px solid rgba(15,23,42,.08);
-      background:#f7fafc;
-      flex:0 0 auto;
-    }
-    .miniIcon.red{background:#fff1f1}
-    .miniIcon.orange{background:#fff5e7}
-    .miniIcon.purple{background:#f3efff}
-    .miniIcon.yellow{background:#fff8dc}
-    .miniIcon svg{width:22px;height:22px;stroke:#111827;fill:none;stroke-width:2}
-    .card h3{margin:0 0 6px;font-size:16px}
-    .card p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
-
-    /* HOW IT WORKS */
-    .howWrap{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:22px;
-      align-items:stretch;
-    }
-    .howLeft{
-      display:grid;
-      gap:18px;
-    }
-    .stepRow{
-      display:grid;
-      grid-template-columns:64px 1fr;
-      gap:14px;
-      align-items:flex-start;
-    }
-    .stepNum{
-      width:46px;height:46px;border-radius:999px;
-      background:var(--teal);
-      color:#fff;
-      display:grid;place-items:center;
-      font-weight:900;
-      margin-left:6px;
-    }
-    .stepRow h3{margin:2px 0 6px;font-size:16px}
-    .stepRow p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
-    .howImg{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      box-shadow:var(--shadow);
       overflow:hidden;
-      display:grid;
-      grid-template-rows:1fr 1fr;
-      gap:0;
+      min-height:320px;
     }
-    .howImg .panel{
+    .mockInner{
+      background:#fff;
+      border-radius:18px;
+      border:1px solid rgba(226,232,240,.9);
       padding:16px;
-      border-bottom:1px solid var(--line);
-      display:grid;
-      place-items:center;
-      background:linear-gradient(180deg, rgba(15,143,123,.10), rgba(255,255,255,0));
+      height:100%;
     }
-    .howImg .panel:last-child{border-bottom:0;background:linear-gradient(180deg, rgba(15,143,123,.06), rgba(255,255,255,0))}
-    .howImg .placeholder{color:#7b8796;font-weight:750;text-align:center;line-height:1.4}
-
-    /* CAPTURES */
-    .tiles{
-      margin-top:20px;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-    }
-    .tile{
-      background:#fff;
-      border:1px solid var(--line);
+    .mockTitle{font-weight:900;margin:0 0 8px}
+    .mockP{margin:0;color:var(--muted);font-size:14px}
+    .mockCardRow{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+    .miniCard{
+      border:1px solid var(--border);
       border-radius:14px;
-      padding:16px;
-      box-shadow:var(--shadow2);
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      min-height:84px;
+      padding:12px;
+      background: #ffffff;
     }
-    .tileIcon{
-      width:38px;height:38px;border-radius:10px;
-      background:rgba(15,143,123,.10);
-      border:1px solid rgba(15,143,123,.18);
-      display:grid;place-items:center;
-      flex:0 0 auto;
-    }
-    .tileIcon svg{width:18px;height:18px;stroke:var(--teal);fill:none;stroke-width:2}
-    .tile h4{margin:0 0 4px;font-size:14px}
-    .tile p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.55}
+    .miniCard strong{display:block}
+    .miniCard span{color:var(--muted);font-size:13px}
 
-    /* PRACTICE CARDS */
-    .practiceGrid{
-      margin-top:20px;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
+    /* Feature icons row */
+    .iconRow{padding:14px 0 0}
+    .iconGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .iconCard{
+      background:#fff;border:1px solid var(--border);border-radius:18px;padding:16px;
+      box-shadow:0 10px 22px rgba(2,8,23,.05);
+      display:flex;gap:12px;align-items:flex-start;
     }
-    .pCard{
-      background:#fff;
-      border:1px solid var(--line);
+    .icon{
+      width:42px;height:42px;border-radius:16px;background:var(--tealSoft);
+      display:flex;align-items:center;justify-content:center;border:1px solid rgba(15,118,110,.18);
+      flex:none;
+    }
+    .iconCard h3{margin:0 0 4px;font-size:16px}
+    .iconCard p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Sections */
+    section{padding:52px 0}
+    .sectionTitle{font-size:36px;line-height:1.12;margin:0 0 10px;text-align:center}
+    .sectionSub{margin:0 auto 28px;max-width:72ch;color:var(--muted);text-align:center}
+
+    /* Problem cards */
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:0 12px 26px rgba(2,8,23,.06);
+      padding:18px;
+    }
+    .card h4{margin:0 0 8px;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* How it works */
+    .how{
+      display:grid;grid-template-columns: 1fr 1fr;gap:18px;align-items:stretch;
+    }
+    .step{
+      display:flex;gap:14px;align-items:flex-start;
+      padding:18px;border-radius:18px;border:1px solid var(--border);background:#fff;
+      box-shadow:0 12px 26px rgba(2,8,23,.05);
+    }
+    .badge{
+      width:42px;height:42px;border-radius:999px;background:var(--teal);
+      color:#fff;display:flex;align-items:center;justify-content:center;
+      font-weight:900;flex:none;
+    }
+    .step h3{margin:0 0 6px}
+    .step p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Capture grid */
+    .capGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .capItem{
+      background:#fff;border:1px solid var(--border);border-radius:14px;
+      padding:14px;display:flex;gap:10px;align-items:flex-start;
+    }
+    .capDot{
+      width:34px;height:34px;border-radius:12px;background:var(--tealSoft);
+      border:1px solid rgba(15,118,110,.18);flex:none;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .capItem strong{display:block}
+    .capItem span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+    /* Practice areas */
+    .practice{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .practice .card{padding:16px}
+
+    /* Pricing (single offer) */
+    .pricingWrap{
+      margin-top:18px;
+      background: linear-gradient(180deg, rgba(15,118,110,.10), rgba(255,255,255,1) 55%);
+      border:1px solid rgba(226,232,240,.75);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .pricingGrid{display:grid;grid-template-columns: 1.05fr .95fr;gap:18px;align-items:stretch}
+    .offer{
+      background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;
+      box-shadow:0 12px 26px rgba(2,8,23,.06);
+    }
+    .offerTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .offer h3{margin:0;font-size:18px}
+    .founding{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(246,212,75,.22);border:1px solid rgba(246,212,75,.45);font-weight:900;font-size:12px}
+    .price{
+      margin:10px 0 8px;
+      font-size:44px;
+      letter-spacing:-.02em;
+      font-weight:1000;
+      line-height:1.0;
+    }
+    .price small{font-size:14px;color:var(--muted);font-weight:800}
+    .valueLine{color:var(--muted);margin:0 0 14px;font-size:14px}
+    .bullets{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+    .bullets li{display:flex;gap:10px;align-items:flex-start}
+    .tick{
+      width:20px;height:20px;border-radius:7px;background:var(--tealSoft);
+      border:1px solid rgba(15,118,110,.18);
+      display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;
+    }
+    .fineprint{
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px solid rgba(226,232,240,.85);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .trust{
+      background: #0b1220;
+      color:#fff;
       border-radius:18px;
       padding:20px;
-      box-shadow:var(--shadow2);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 18px 45px rgba(2,8,23,.18);
+      display:flex;flex-direction:column;justify-content:space-between;gap:14px;
     }
-    .pIcon{
-      width:46px;height:46px;border-radius:12px;
-      background:rgba(15,143,123,.14);
-      border:1px solid rgba(15,143,123,.20);
-      display:grid;place-items:center;
-      margin-bottom:12px;
+    .trust h4{margin:0 0 6px}
+    .trust p{margin:0;color:rgba(255,255,255,.82);font-size:14px}
+    .trustBox{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:14px;
     }
-    .pIcon svg{width:22px;height:22px;stroke:var(--teal);fill:none;stroke-width:2}
-    .pCard h3{margin:0 0 8px;font-size:16px}
-    .pCard p{margin:0;color:var(--muted);line-height:1.7;font-size:13.5px}
-
-    /* PRICING */
-    .pricing{
-      margin-top:26px;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      align-items:stretch;
-    }
-    .priceCard{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:22px;
-      box-shadow:var(--shadow2);
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      min-height:380px;
-    }
-    .priceCard h3{margin:0;font-size:18px}
-    .priceCard .small{color:var(--muted);font-size:12.5px}
-    .priceCard .amt{
-      font-size:34px;
-      font-weight:900;
-      margin:2px 0 4px;
-      letter-spacing:-.4px;
-    }
-    .priceCard ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.9;font-size:13.5px}
-    .priceCard .spacer{flex:1}
-    .priceCard .btn{width:100%;border-color:#1f2937;box-shadow:none}
-    .popular{
-      background:var(--teal);
-      color:#fff;
-      border-color: rgba(0,0,0,.0);
-      box-shadow: 0 18px 44px rgba(15,143,123,.26);
-      transform: translateY(-4px);
-    }
-    .popular .small, .popular ul{color:rgba(255,255,255,.85)}
-    .tag{
-      position:absolute;
-      top:-12px;left:50%;
-      transform:translateX(-50%);
-      background:var(--yellow);
-      color:#111827;
-      font-weight:900;
-      font-size:11px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.10);
-      letter-spacing:.3px;
-    }
-    .popular .btn{
-      background:var(--yellow);
-      border-color:transparent;
-      font-weight:900;
-    }
+    .trustList{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+    .trustList li{color:rgba(255,255,255,.86);font-size:14px}
 
     /* FAQ */
-    .faq{
-      margin-top:22px;
-      max-width:880px;
-      margin-left:auto;
-      margin-right:auto;
-      display:grid;
-      gap:10px;
-    }
-    details{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:14px;
+    .faq{max-width:860px;margin:0 auto}
+    .faqItem{
+      background:#fff;border:1px solid var(--border);border-radius:14px;
       padding:14px 16px;
-      box-shadow:var(--shadow2);
+      margin:10px 0;
+      box-shadow:0 10px 22px rgba(2,8,23,.04);
     }
-    summary{
-      cursor:pointer;
-      font-weight:800;
-      list-style:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+    .faqQ{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      font-weight:900;cursor:pointer;
     }
-    summary::-webkit-details-marker{display:none}
-    .chev{
-      width:22px;height:22px;
-      border-radius:8px;
-      display:grid;place-items:center;
-      border:1px solid var(--line);
-      background:#f8fafc;
-      flex:0 0 auto;
-    }
-    .chev svg{width:14px;height:14px;stroke:#111827;fill:none;stroke-width:2}
-    details[open] .chev svg{transform:rotate(180deg)}
-    details p{margin:10px 0 2px;color:var(--muted);line-height:1.75;font-size:14px}
+    .faqA{display:none;margin-top:10px;color:var(--muted);font-size:14px}
+    .chev{transition:.15s transform}
+    .faqItem.open .faqA{display:block}
+    .faqItem.open .chev{transform:rotate(180deg)}
 
-    footer{
-      padding:34px 0 44px;
-      border-top:1px solid var(--line);
-      color:var(--muted);
+    /* Form section */
+    .ctaBand{
+      background: linear-gradient(180deg, rgba(15,118,110,.95), rgba(15,118,110,.88));
+      color:#fff;
+      border-top:1px solid rgba(255,255,255,.12);
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .ctaBand .sectionTitle{color:#fff}
+    .ctaBand .sectionSub{color:rgba(255,255,255,.85)}
+    .formCard{
+      max-width:860px;margin:22px auto 0;
+      background:#fff;color:var(--text);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.35);
+      box-shadow:0 18px 45px rgba(2,8,23,.25);
+      padding:18px;
+    }
+    form{display:grid;gap:12px}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{font-size:12px;font-weight:900;color:#0f172a}
+    input,select,textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font:inherit;
+      outline:none;
       background:#fff;
     }
-    .footRow{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
-    .footRow a{text-decoration:underline;text-decoration-color:rgba(91,103,120,.35)}
-    .fine{
-      font-size:12px;
-      line-height:1.6;
-      color:rgba(91,103,120,.95);
-      max-width:80ch;
-    }
+    input:focus,select:focus,textarea:focus{border-color:rgba(15,118,110,.55);box-shadow:0 0 0 4px rgba(15,118,110,.10)}
+    textarea{min-height:110px;resize:vertical}
+    .small{font-size:12px;color:var(--muted)}
+    .agree{display:flex;gap:10px;align-items:flex-start}
+    .agree input{width:18px;height:18px;margin-top:3px}
+    .formActions{display:flex;justify-content:center;margin-top:6px}
 
-    /* responsive */
+    /* Footer */
+    footer{
+      background: radial-gradient(900px 600px at 50% 0%, rgba(255,255,255,.06), rgba(255,255,255,0) 60%),
+                  linear-gradient(180deg, #0b1220, #070c16);
+      color:#fff;
+      padding:44px 0;
+    }
+    .footerGrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px}
+    .footerBrand{display:flex;gap:12px;align-items:flex-start}
+    .footerBrand img{height:40px;width:auto}
+    .footerP{margin:10px 0 0;color:rgba(255,255,255,.78);font-size:14px}
+    .footerCol h5{margin:0 0 10px}
+    .footerCol a{display:block;color:rgba(255,255,255,.78);text-decoration:none;margin:8px 0;font-size:14px}
+    .footerCol a:hover{color:#fff}
+    .footerBottom{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.12);
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+    }
+    .footerBottom a{color:rgba(255,255,255,.85)}
+    .footerBottom a:hover{color:#fff}
+
+    /* Responsive */
     @media (max-width: 980px){
-      .heroGrid, .howWrap{grid-template-columns:1fr}
-      .h1{font-size:44px}
-      .tripleRow, .tiles, .practiceGrid, .pricing{grid-template-columns:1fr}
-      .cards2{grid-template-columns:1fr}
-      .popular{transform:none}
+      .heroGrid{grid-template-columns:1fr;gap:18px}
+      h1{font-size:42px}
+      .iconGrid{grid-template-columns:1fr}
+      .grid2{grid-template-columns:1fr}
+      .how{grid-template-columns:1fr}
+      .capGrid{grid-template-columns:1fr}
+      .practice{grid-template-columns:1fr}
+      .pricingGrid{grid-template-columns:1fr}
+      .footerGrid{grid-template-columns:1fr}
+      .row2{grid-template-columns:1fr}
+      .navlinks .link{display:none}
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="wrap nav">
-      <div class="brand">
-        <div class="brandMark" aria-hidden="true">
-          <!-- simple shield mark -->
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2 20 6v6c0 6-4 10-8 10S4 18 4 12V6l8-4Z" fill="none" stroke="rgba(15,143,123,.9)" stroke-width="2"/>
-            <path d="M9 12l2 2 4-5" fill="none" stroke="rgba(15,143,123,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span>Legal Client Intake</span>
-      </div>
 
-      <div class="actions">
-        <a class="btn primary" href="#book-demo">Book Demo</a>
-        <a class="btn ghost" href="#pricing">Get Pricing</a>
+  <!-- Header -->
+  <div class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="Legal Client Intake">
+          <img src="assets/logo_LCI-bg-light.png" alt="Legal Client Intake" />
+        </a>
+        <div class="navlinks">
+          <a class="link" href="#how">How it works</a>
+          <a class="link" href="#pricing">Pricing</a>
+          <a class="btn btn-primary" href="#demo">Book Demo</a>
+          <a class="btn btn-outline" href="#pricing">Get Pricing</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="wrap heroGrid">
-      <div>
-        <h1 class="h1">Stop Missing New<br/>Client Calls.</h1>
-        <p class="lead">Your firm’s after-hours intake handled instantly — capturing case details and booking consultations while you’re away.</p>
+  <!-- Hero -->
+  <div id="top" class="hero">
+    <div class="container">
+      <div class="heroGrid">
+        <div>
+          <span class="pill">After-hours intake for small law firms</span>
+          <h1>Stop Missing New<br/>Client Calls.</h1>
+          <p class="sub">
+            Your firm’s after-hours intake handled instantly—capturing case details and helping schedule consultations while you’re away.
+          </p>
 
-        <ul class="checks">
-          <li>
-            <span class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8-8 1.4 1.4z"/></svg>
-            </span>
-            Answers every call
-          </li>
-          <li>
-            <span class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8-8 1.4 1.4z"/></svg>
-            </span>
-            Captures structured case details
-          </li>
-          <li>
-            <span class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M9.2 16.6 4.9 12.3l1.4-1.4 2.9 2.9 8-8 1.4 1.4z"/></svg>
-            </span>
-            Schedules consultations automatically
-          </li>
-        </ul>
+          <ul class="checks">
+            <li><span class="check">✓</span> Answers every call</li>
+            <li><span class="check">✓</span> Captures structured case details</li>
+            <li><span class="check">✓</span> Routes urgent matters or books consults</li>
+          </ul>
 
-        <div class="ctaRow">
-          <a class="btn primary" href="#book-demo">Book a Demo</a>
-          <a class="btn ghost" href="#how-it-works">See How It Works</a>
+          <div class="heroActions">
+            <a class="btn btn-primary" href="#demo">Book a Demo</a>
+            <a class="btn btn-outline" href="#how">See How It Works</a>
+          </div>
         </div>
-      </div>
 
-      <div class="heroCard">
-        <div class="heroImg">
-          <!-- OPTIONAL: replace placeholder with your own image -->
-          <!-- <img src="/assets/hero.jpg" alt="Legal Client Intake preview" /> -->
-          <div class="placeholder">
-            Hero Image Placeholder<br/>
-            (Optional) Add <strong>/assets/hero.jpg</strong> and uncomment the img tag.
+        <div class="mock" aria-label="Product preview">
+          <div class="mockInner">
+            <p class="mockTitle">Example Intake Summary</p>
+            <p class="mockP">Delivered to your team in minutes—organized and ready to review.</p>
+            <div class="mockCardRow">
+              <div class="miniCard">
+                <strong>Caller</strong>
+                <span>Jane Smith • (555) 123-4567</span>
+              </div>
+              <div class="miniCard">
+                <strong>Matter Type</strong>
+                <span>Personal Injury • Auto Accident</span>
+              </div>
+              <div class="miniCard">
+                <strong>Urgency</strong>
+                <span>High • Requests callback tonight</span>
+              </div>
+              <div class="miniCard">
+                <strong>Next Step</strong>
+                <span>Offer consultation • Route to on-call attorney</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="iconRow">
+        <div class="iconGrid">
+          <div class="iconCard">
+            <div class="icon">🏛️</div>
+            <div>
+              <h3>Designed for Small Law Firms</h3>
+              <p>Built for solo practitioners and small practices who can’t afford missed calls.</p>
+            </div>
+          </div>
+          <div class="iconCard">
+            <div class="icon">⚡</div>
+            <div>
+              <h3>Fast Setup</h3>
+              <p>Get live quickly with a guided onboarding and a clear after-hours call flow.</p>
+            </div>
+          </div>
+          <div class="iconCard">
+            <div class="icon">🛡️</div>
+            <div>
+              <h3>Secure Handling</h3>
+              <p>Caller details can be delivered to your team in a controlled, consistent format.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
 
-    <!-- triple icons -->
-    <div class="triple">
-      <div class="wrap tripleRow">
-        <div class="pillCard">
-          <div class="iconCircle" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M4 20V10m6 10V4m6 16v-7m4 7H2" />
-            </svg>
-          </div>
-          <h3>Designed for Small Law Firms</h3>
-          <p>Built specifically for solo practitioners and small legal practices</p>
-        </div>
-        <div class="pillCard">
-          <div class="iconCircle" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M13 2 3 14h9l-1 8 10-12h-9z" />
-            </svg>
-          </div>
-          <h3>Fast Setup</h3>
-          <p>Get started in minutes with our streamlined onboarding process</p>
-        </div>
-        <div class="pillCard">
-          <div class="iconCircle" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2 20 6v6c0 6-4 10-8 10S4 18 4 12V6l8-4Z" />
-            </svg>
-          </div>
-          <h3>Secure Handling</h3>
-          <p>Enterprise-grade security for all caller information and case data</p>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- PROBLEM -->
+  <!-- Problems -->
   <section>
-    <div class="wrap">
-      <div class="centerTitle">
-        <h2 class="h2">Missed Calls = Lost Cases.</h2>
-        <p class="sub">Every unanswered call is a potential client choosing your competitor. The cost of missed opportunities adds up quickly.</p>
+    <div class="container">
+      <h2 class="sectionTitle">Missed Calls = Lost Cases.</h2>
+      <p class="sectionSub">
+        Every unanswered call is a potential client choosing your competitor. The cost of missed opportunities adds up quickly.
+      </p>
+
+      <div class="grid2">
+        <div class="card">
+          <h4>Voicemail Drop-Off</h4>
+          <p>Most callers won’t leave a message. They’ll move on to the next attorney who answers.</p>
+        </div>
+        <div class="card">
+          <h4>Staff Burnout</h4>
+          <p>After-hours calls, weekends, and holidays create stress and inconsistent intake notes.</p>
+        </div>
+        <div class="card">
+          <h4>After-Hours Emergencies</h4>
+          <p>Legal issues don’t wait. Urgent calls need the right response—immediately.</p>
+        </div>
+        <div class="card">
+          <h4>Inconsistent Intake Notes</h4>
+          <p>Handwritten notes and missed details make it harder to evaluate cases and follow up.</p>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="cards2">
-        <div class="card">
-          <div class="cardTop">
-            <div class="miniIcon red" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.6 3a2 2 0 0 1-.6 1.9l-1.3 1.3a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 1.9-.6l3 .6a2 2 0 0 1 1.7 2z"/></svg>
-            </div>
-            <div>
-              <h3>Voicemail Drop-Off</h3>
-              <p>Most callers won’t leave a message. They’ll simply move on to the next attorney who answers. You lose the case before you even know about it.</p>
-            </div>
+  <!-- How it works -->
+  <section id="how">
+    <div class="container">
+      <h2 class="sectionTitle">How It Works</h2>
+      <p class="sectionSub">
+        A professional intake experience that captures what you need and routes the call the way your firm prefers.
+      </p>
+
+      <div class="how">
+        <div class="step">
+          <div class="badge">1</div>
+          <div>
+            <h3>Caller speaks with an intelligent assistant</h3>
+            <p>Callers are greeted professionally. The conversation is natural and focused on gathering the right facts.</p>
           </div>
         </div>
 
-        <div class="card">
-          <div class="cardTop">
-            <div class="miniIcon orange" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 6v6l4 2"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"/></svg>
-            </div>
-            <div>
-              <h3>Staff Burnout</h3>
-              <p>Your team can’t be available 24/7. After-hours calls, weekends, and holidays create stress and lead to inconsistent client experiences.</p>
-            </div>
+        <div class="step">
+          <div class="badge">2</div>
+          <div>
+            <h3>Key case details are captured</h3>
+            <p>Information is organized into a structured intake summary so you can review quickly and follow up.</p>
           </div>
         </div>
 
-        <div class="card">
-          <div class="cardTop">
-            <div class="miniIcon purple" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"/></svg>
-            </div>
-            <div>
-              <h3>After-Hours Emergencies</h3>
-              <p>Legal emergencies don’t wait for business hours. When someone needs help urgently, they need to reach you immediately—not tomorrow morning.</p>
-            </div>
+        <div class="step">
+          <div class="badge">3</div>
+          <div>
+            <h3>Consultation booked or message routed</h3>
+            <p>Based on your settings, the system can book a consult, route urgent calls, or send an instant alert.</p>
           </div>
         </div>
 
-        <div class="card">
-          <div class="cardTop">
-            <div class="miniIcon yellow" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-            </div>
-            <div>
-              <h3>Inconsistent Intake Notes</h3>
-              <p>Handwritten notes, missed details, and incomplete information make it harder to evaluate cases and follow up effectively with potential clients.</p>
-            </div>
+        <div class="step">
+          <div class="badge">✓</div>
+          <div>
+            <h3>Consistent intake—every time</h3>
+            <p>Same structure, same professionalism, every call—so your firm can respond faster and with confidence.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works">
-    <div class="wrap">
-      <div class="centerTitle">
-        <h2 class="h2">How It Works</h2>
-        <p class="sub">Our intelligent intake system handles every call professionally, capturing the information you need to evaluate and respond to new cases.</p>
-      </div>
-
-      <div class="howWrap">
-        <div class="howLeft">
-          <div class="stepRow">
-            <div class="stepNum">1</div>
-            <div>
-              <h3>Caller Speaks with Intelligent Assistant</h3>
-              <p>When someone calls your firm, they’re greeted by a professional assistant that can handle complex conversations naturally.</p>
-            </div>
-          </div>
-
-          <div class="stepRow">
-            <div class="stepNum">2</div>
-            <div>
-              <h3>Key Case Details Are Captured</h3>
-              <p>The system automatically extracts and organizes critical information: contact details, case type, incident date, injuries, opposing parties, and urgency level.</p>
-            </div>
-          </div>
-
-          <div class="stepRow">
-            <div class="stepNum">3</div>
-            <div>
-              <h3>Consultation Scheduled or Message Routed</h3>
-              <p>Based on your preferences, the system either books a consultation directly or routes urgent matters to you immediately.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="howImg">
-          <div class="panel">
-            <!-- OPTIONAL: replace with your “AI conversation screen” image -->
-            <!-- <img src="/assets/how-1.jpg" alt="Intake conversation" /> -->
-            <div class="placeholder">Optional image: <strong>/assets/how-1.jpg</strong></div>
-          </div>
-          <div class="panel">
-            <!-- OPTIONAL: replace with your “calendar scheduling” image -->
-            <!-- <img src="/assets/how-2.jpg" alt="Scheduling" /> -->
-            <div class="placeholder">Optional image: <strong>/assets/how-2.jpg</strong></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT IT CAPTURES -->
+  <!-- What it captures -->
   <section>
-    <div class="wrap">
-      <div class="centerTitle">
-        <h2 class="h2">What It Captures</h2>
-        <p class="sub">Every call is transformed into a structured intake report with all the details you need to evaluate the case.</p>
-      </div>
+    <div class="container">
+      <h2 class="sectionTitle">What It Captures</h2>
+      <p class="sectionSub">
+        Every call is transformed into a structured intake report with the details you need to evaluate the case.
+      </p>
 
-      <div class="tiles">
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path d="M4 22a8 8 0 0 1 16 0"/></svg></div>
-          <div><h4>Name</h4><p>Full name of the potential client</p></div>
-        </div>
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3"/></svg></div>
-          <div><h4>Phone &amp; Email</h4><p>Contact information for follow-up</p></div>
-        </div>
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h10M7 12h10M7 17h10"/><path d="M5 3h14v18H5z"/></svg></div>
-          <div><h4>Type of Case</h4><p>Practice area and case category</p></div>
-        </div>
-
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7V3m8 4V3"/><path d="M4 11h16"/><path d="M5 5h14v16H5z"/></svg></div>
-          <div><h4>Incident Date</h4><p>When the incident occurred</p></div>
-        </div>
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"/><path d="M12 10a2 2 0 1 0-2-2 2 2 0 0 0 2 2Z"/></svg></div>
-          <div><h4>Location</h4><p>Where the incident took place</p></div>
-        </div>
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-4-4"/><path d="M2 22a7 7 0 0 1 12-5"/><path d="M20 14v6"/><path d="M17 17h6"/></svg></div>
-          <div><h4>Opposing Party</h4><p>Information about the other party</p></div>
-        </div>
-
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-11a7 7 0 0 1 14 0c0 6.6-7 11-7 11Z"/><path d="M9.5 9.5 12 12l2.5-2.5"/></svg></div>
-          <div><h4>Injuries or Damages</h4><p>Details about harm or losses</p></div>
-        </div>
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.9 4.9 7.7 7.7"/><path d="M16.3 16.3 19.1 19.1"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.9 19.1 7.7 16.3"/><path d="M16.3 7.7 19.1 4.9"/></svg></div>
-          <div><h4>Urgency Level</h4><p>Priority and time sensitivity</p></div>
-        </div>
-        <div class="tile">
-          <div class="tileIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg></div>
-          <div><h4>Additional Notes</h4><p>Any other relevant information</p></div>
-        </div>
+      <div class="capGrid">
+        <div class="capItem"><div class="capDot">👤</div><div><strong>Name</strong><span>Full name of the potential client</span></div></div>
+        <div class="capItem"><div class="capDot">📞</div><div><strong>Phone & Email</strong><span>Contact information for follow up</span></div></div>
+        <div class="capItem"><div class="capDot">⚖️</div><div><strong>Type of Case</strong><span>Practice area and case category</span></div></div>
+        <div class="capItem"><div class="capDot">📅</div><div><strong>Incident Date</strong><span>When the incident occurred</span></div></div>
+        <div class="capItem"><div class="capDot">📍</div><div><strong>Location</strong><span>Where the incident took place</span></div></div>
+        <div class="capItem"><div class="capDot">👥</div><div><strong>Opposing Party</strong><span>Information about the other party</span></div></div>
+        <div class="capItem"><div class="capDot">💥</div><div><strong>Injuries / Damages</strong><span>Details about harm or losses</span></div></div>
+        <div class="capItem"><div class="capDot">⏱️</div><div><strong>Urgency Level</strong><span>Priority and time sensitivity</span></div></div>
+        <div class="capItem"><div class="capDot">📝</div><div><strong>Additional Notes</strong><span>Anything else relevant</span></div></div>
       </div>
     </div>
   </section>
 
-  <!-- PRACTICE AREAS -->
+  <!-- Practice areas -->
   <section>
-    <div class="wrap">
-      <div class="centerTitle">
-        <h2 class="h2">Practice Area Use Cases</h2>
-        <p class="sub">Customized intake workflows for every type of legal practice.</p>
-      </div>
+    <div class="container">
+      <h2 class="sectionTitle">Practice Area Use Cases</h2>
+      <p class="sectionSub">Customized intake workflows for every type of legal practice.</p>
 
-      <div class="practiceGrid">
-        <div class="pCard">
-          <div class="pIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17h10"/><path d="M6 17l1-10h10l1 10"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></div>
-          <h3>Personal Injury</h3>
-          <p>Handle accident and injury cases with detailed incident documentation and medical information capture.</p>
+      <div class="practice">
+        <div class="card">
+          <h4>Personal Injury</h4>
+          <p>Collect accident details, injuries, treatment, and insurance information.</p>
         </div>
-        <div class="pCard">
-          <div class="pIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 20 6v6c0 6-4 10-8 10S4 18 4 12V6l8-4Z"/></svg></div>
-          <h3>Criminal Defense</h3>
-          <p>Capture arrest details, charges, and court dates while maintaining client confidentiality and urgency.</p>
+        <div class="card">
+          <h4>Criminal Defense</h4>
+          <p>Capture charges, arrest details, court dates, and time sensitivity.</p>
         </div>
-        <div class="pCard">
-          <div class="pIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-8 0"/><path d="M2 22a8 8 0 0 1 20 0"/><path d="M12 11v11"/></svg></div>
-          <h3>Family Law</h3>
-          <p>Sensitively gather information about divorce, custody, and family matters with empathy and discretion.</p>
+        <div class="card">
+          <h4>Family Law</h4>
+          <p>Handle sensitive matters with empathy while gathering essential facts.</p>
         </div>
-        <div class="pCard">
-          <div class="pIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 9h6"/><path d="M12 2v2"/><path d="M7 22h10"/><path d="M8 22a4 4 0 0 1 8 0"/><path d="M7 6h10v10H7z"/></svg></div>
-          <h3>DUI</h3>
-          <p>Document arrest circumstances, BAC levels, and prior offenses for immediate case evaluation.</p>
+        <div class="card">
+          <h4>DUI</h4>
+          <p>Document BAC questions, arrest circumstances, and immediate deadlines.</p>
         </div>
-        <div class="pCard">
-          <div class="pIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M7 6h10"/><path d="M7 18h10"/><path d="M5 10h14"/><path d="M5 14h14"/></svg></div>
-          <h3>Immigration</h3>
-          <p>Collect visa status, citizenship goals, and timeline requirements for immigration matters.</p>
+        <div class="card">
+          <h4>Immigration</h4>
+          <p>Collect status, timelines, supporting documents, and urgency indicators.</p>
         </div>
-        <div class="pCard">
-          <div class="pIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6h15"/><path d="M6 12h15"/><path d="M6 18h15"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg></div>
-          <h3>Bankruptcy</h3>
-          <p>Gather financial information, debt details, and asset documentation for bankruptcy consultations.</p>
+        <div class="card">
+          <h4>Bankruptcy</h4>
+          <p>Gather basic financial info, creditors, and consultation readiness.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRICING -->
+  <!-- Pricing (REWRITTEN as single offer) -->
   <section id="pricing">
-    <div class="wrap">
-      <div class="centerTitle">
-        <h2 class="h2">Simple Monthly Plans.</h2>
-        <p class="sub">Transparent pricing designed for law firms of all sizes. No hidden fees, no surprises.</p>
-      </div>
+    <div class="container">
+      <h2 class="sectionTitle">Simple Monthly Pricing.</h2>
+      <p class="sectionSub">
+        One plan that solves the real problem: after-hours calls that turn into signed clients.
+      </p>
 
-      <div class="pricing">
-        <div class="priceCard">
-          <h3>Starter</h3>
-          <div class="small">Perfect for solo practitioners</div>
-          <div class="amt">Starting at<br/>$__/month</div>
-          <ul>
-            <li>Up to 100 calls/month</li>
-            <li>Basic intake forms</li>
-            <li>Email summaries</li>
-            <li>Calendar integration</li>
-          </ul>
-          <div class="spacer"></div>
-          <a class="btn ghost" href="#book-demo">Get Started</a>
+      <div class="pricingWrap">
+        <div class="pricingGrid">
+
+          <!-- Offer -->
+          <div class="offer">
+            <div class="offerTop">
+              <div>
+                <h3>Founding Firm Plan</h3>
+                <div class="valueLine">Built for solo and small firms that want a professional after-hours intake experience—without hiring more staff.</div>
+              </div>
+              <div class="founding">FOUNDING RATE</div>
+            </div>
+
+            <div class="price">$297 <small>/ month</small></div>
+            <p class="valueLine"><strong>Cancel anytime.</strong> No long-term contracts. Onboarding included.</p>
+
+            <ul class="bullets">
+              <li><span class="tick">✓</span><div><strong>After-hours call handling</strong><br/><span class="small">Your callers get a consistent, professional intake experience.</span></div></li>
+              <li><span class="tick">✓</span><div><strong>Custom intake questions</strong><br/><span class="small">Customize by practice area. Update your questions anytime.</span></div></li>
+              <li><span class="tick">✓</span><div><strong>Structured intake summaries</strong><br/><span class="small">Get the key details in a clean, readable format for fast review.</span></div></li>
+              <li><span class="tick">✓</span><div><strong>Transcripts & recording access</strong><br/><span class="small">Review what was said and follow up with confidence.</span></div></li>
+              <li><span class="tick">✓</span><div><strong>Urgent call routing options</strong><br/><span class="small">Route urgent matters based on your preferences.</span></div></li>
+              <li><span class="tick">✓</span><div><strong>Consult scheduling option</strong><br/><span class="small">If you want it, connect scheduling to your availability.</span></div></li>
+            </ul>
+
+            <div class="fineprint">
+              <strong>Revenue-protection / fair use:</strong>
+              This plan is designed for typical small-firm after-hours usage.
+              If your firm consistently operates at unusually high call volume, we’ll recommend a custom plan so service quality remains excellent.
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+              <a class="btn btn-gold" href="#demo">Book Demo (Exact Quote)</a>
+              <a class="btn btn-outline" href="#demo">Ask a Question</a>
+            </div>
+          </div>
+
+          <!-- Trust / conversion psychology -->
+          <div class="trust">
+            <div>
+              <h4>Why one plan?</h4>
+              <p>
+                Early-stage firms don’t want feature math. You want a clear outcome:
+                <strong>every after-hours call answered</strong>, with the right details captured so you can sign more clients.
+              </p>
+
+              <div class="trustBox" style="margin-top:14px;">
+                <strong>Risk reversal</strong>
+                <ul class="trustList">
+                  <li>• No contract. Cancel anytime.</li>
+                  <li>• White-glove onboarding included.</li>
+                  <li>• Set your preferences once, refine anytime.</li>
+                </ul>
+              </div>
+
+              <div class="trustBox" style="margin-top:12px;">
+                <strong>Good fit for:</strong>
+                <ul class="trustList">
+                  <li>• Solo attorneys & small firms</li>
+                  <li>• Firms who miss calls after 5pm / weekends</li>
+                  <li>• Practices that want consistent intake notes</li>
+                </ul>
+              </div>
+            </div>
+
+            <a class="btn btn-primary" href="#demo">Book Your Demo</a>
+          </div>
+
         </div>
-
-        <div class="priceCard popular">
-          <div class="tag">MOST POPULAR</div>
-          <h3>Professional</h3>
-          <div class="small">For growing practices</div>
-          <div class="amt">Starting at<br/>$__/month</div>
-          <ul>
-            <li>Up to 500 calls/month</li>
-            <li>Custom intake forms</li>
-            <li>Priority routing</li>
-            <li>CRM integration</li>
-            <li>Call transcripts</li>
-          </ul>
-          <div class="spacer"></div>
-          <a class="btn" href="#book-demo">Get Started</a>
-        </div>
-
-        <div class="priceCard">
-          <h3>Firm</h3>
-          <div class="small">For established firms</div>
-          <div class="amt">Starting at<br/>$__/month</div>
-          <ul>
-            <li>Unlimited calls</li>
-            <li>Advanced customization</li>
-            <li>Multi-location support</li>
-            <li>Dedicated support</li>
-            <li>Analytics dashboard</li>
-          </ul>
-          <div class="spacer"></div>
-          <a class="btn ghost" href="#book-demo">Get Started</a>
-        </div>
-      </div>
-
-      <div style="text-align:center;margin-top:18px;">
-        <a class="btn primary" href="#book-demo">Book Demo for Exact Quote</a>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
   <section>
-    <div class="wrap">
-      <div class="centerTitle">
-        <h2 class="h2">Frequently Asked Questions</h2>
-        <p class="sub">Everything you need to know about Legal Client Intake.</p>
-      </div>
+    <div class="container">
+      <h2 class="sectionTitle">Frequently Asked Questions</h2>
+      <p class="sectionSub">Everything you need to know about Legal Client Intake.</p>
 
-      <div class="faq">
-        <details>
-          <summary>
-            How long does setup take?
-            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
-          </summary>
-          <p>Typically within days depending on your intake questions, routing preferences, and the practice areas you want covered first.</p>
-        </details>
+      <div class="faq" id="faq">
+        <div class="faqItem">
+          <div class="faqQ">How long does setup take? <span class="chev">▾</span></div>
+          <div class="faqA">Most firms are up and running within 24–48 hours. We handle technical configuration while you customize your intake questions and preferences.</div>
+        </div>
 
-        <details>
-          <summary>
-            Can I customize the intake questions?
-            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
-          </summary>
-          <p>Yes. Intake workflows can be tailored by practice area so you capture the exact information you need before calling the lead back.</p>
-        </details>
+        <div class="faqItem">
+          <div class="faqQ">Can I customize the intake questions? <span class="chev">▾</span></div>
+          <div class="faqA">Yes. You control what information is collected, can tailor questions by practice area, and update your intake flow anytime.</div>
+        </div>
 
-        <details>
-          <summary>
-            Can calls be transferred to an attorney?
-            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
-          </summary>
-          <p>Yes. You can define “urgent” criteria and route those calls immediately while standard leads are captured and summarized.</p>
-        </details>
+        <div class="faqItem">
+          <div class="faqQ">Can calls be transferred to an attorney? <span class="chev">▾</span></div>
+          <div class="faqA">Yes. You can set preferences for urgent matters, including routing options and immediate alerts based on the details collected.</div>
+        </div>
 
-        <details>
-          <summary>
-            How does it handle urgent or emotional callers?
-            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
-          </summary>
-          <p>The intake flow stays calm and structured, focusing on essentials and de-escalation while capturing key details and urgency.</p>
-        </details>
+        <div class="faqItem">
+          <div class="faqQ">How does it handle urgent or emotional callers? <span class="chev">▾</span></div>
+          <div class="faqA">It’s designed to recognize urgency and distress, respond with empathy, prioritize appropriately, and follow your routing or alert preferences.</div>
+        </div>
+
+        <div class="faqItem">
+          <div class="faqQ">Is caller data secure? <span class="chev">▾</span></div>
+          <div class="faqA">We take security seriously and use secure delivery methods for intake summaries. Your firm controls who receives access and where intake messages are delivered.</div>
+        </div>
+
+        <div class="faqItem">
+          <div class="faqQ">Does it support multiple languages? <span class="chev">▾</span></div>
+          <div class="faqA">Yes. The assistant can support multiple languages. Ask during your demo and we’ll configure the language experience your firm needs.</div>
+        </div>
+
+        <div class="faqItem">
+          <div class="faqQ">Can I access call transcripts and summaries? <span class="chev">▾</span></div>
+          <div class="faqA">Yes. You can review structured summaries and transcripts/recordings so you can follow up confidently and consistently.</div>
+        </div>
+
+        <div class="faqItem">
+          <div class="faqQ">Can I turn the service on and off during business hours? <span class="chev">▾</span></div>
+          <div class="faqA">Yes. You can control when the after-hours intake experience is active and adjust schedules as your firm’s needs change.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- BOOK DEMO -->
-  <section id="book-demo">
-    <div class="wrap">
-      <div class="centerTitle">
-        <h2 class="h2">Book a Demo</h2>
-        <p class="sub">Let’s walk through your call flow and show how after-hours intake can convert more leads into signed clients.</p>
-      </div>
+  <!-- Demo / Contact -->
+  <section id="demo" class="ctaBand">
+    <div class="container">
+      <h2 class="sectionTitle">Ready to Stop Missing Calls?</h2>
+      <p class="sectionSub">Book a demo and see how Legal Client Intake can transform your practice.</p>
 
-      <div class="card" style="max-width:860px;margin:0 auto;">
-        <form onsubmit="alert('Demo request placeholder captured. Next step: connect this to an email or form endpoint.'); return false;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <input required placeholder="Your Name" />
-            <input required placeholder="Law Firm Name" />
-            <input required type="email" placeholder="Email" />
-            <input placeholder="Phone (optional)" />
-          </div>
-          <div style="margin-top:12px;">
-            <textarea placeholder="Practice area(s) + anything you want us to know (optional)" style="width:100%;min-height:110px;padding:12px;border-radius:12px;border:1px solid var(--line);"></textarea>
-          </div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px;">
-            <button class="btn primary" type="submit">Request Demo</button>
-            <div class="fine">
-              <strong>Disclaimer:</strong> Submitting this form does not create an attorney-client relationship.
-              Legal Client Intake is not a law firm and does not provide legal advice.
+      <div class="formCard">
+        <!-- NOTE: This is a front-end-only form. Replace action/method when you wire up your backend. -->
+        <form action="#" method="post" onsubmit="return handleDemoSubmit(event)">
+          <div class="row2">
+            <div>
+              <label for="name">Name *</label>
+              <input id="name" name="name" required placeholder="John Doe" />
             </div>
+            <div>
+              <label for="firm">Law Firm Name *</label>
+              <input id="firm" name="firm" required placeholder="Smith & Associates" />
+            </div>
+          </div>
+
+          <div class="row2">
+            <div>
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" required placeholder="john@lawfirm.com" />
+            </div>
+            <div>
+              <label for="phone">Phone *</label>
+              <input id="phone" name="phone" required placeholder="(555) 123-4567" />
+            </div>
+          </div>
+
+          <div>
+            <label for="practice">Practice Area *</label>
+            <select id="practice" name="practice" required>
+              <option value="" selected disabled>Select a practice area</option>
+              <option>Personal Injury</option>
+              <option>Criminal Defense</option>
+              <option>Family Law</option>
+              <option>DUI</option>
+              <option>Immigration</option>
+              <option>Bankruptcy</option>
+              <option>General Practice</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="msg">Message</label>
+            <textarea id="msg" name="message" maxlength="500" placeholder="Tell us about your needs..."></textarea>
+            <div class="small"><span id="count">0</span>/500 characters</div>
+          </div>
+
+          <div class="agree">
+            <input id="agree" type="checkbox" required />
+            <label for="agree" style="font-size:13px;font-weight:800;color:var(--muted);">
+              I understand that submitting this form does not create an attorney-client relationship. *
+            </label>
+          </div>
+
+          <div class="formActions">
+            <button class="btn btn-primary" type="submit" style="min-width:260px;">Book Your Demo</button>
+          </div>
+
+          <div class="small" style="text-align:center;margin-top:2px;">
+            By submitting, you agree to be contacted about this request.
           </div>
         </form>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <div class="wrap footRow">
-      <div>
-        <strong>Teleringer LLC</strong><br/>
-        <span class="fine">Legal Client Intake is not a law firm and does not provide legal advice.</span>
+    <div class="container">
+      <div class="footerGrid">
+        <div>
+          <div class="footerBrand">
+            <img src="assets/logo_LCI-bg-dark.png" alt="Legal Client Intake" />
+          </div>
+          <p class="footerP">Intelligent after-hours intake for law firms. Never miss a potential client again.</p>
+        </div>
+
+        <div class="footerCol">
+          <h5>Company</h5>
+          <a href="#pricing">Pricing</a>
+          <a href="#how">How it works</a>
+          <a href="#demo">Book demo</a>
+        </div>
+
+        <div class="footerCol">
+          <h5>Contact</h5>
+          <a href="#demo">Questions about our service? Book a demo to speak with our team.</a>
+        </div>
       </div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;">
-        <a href="#" onclick="alert('Add Privacy page later');return false;">Privacy</a>
-        <a href="#" onclick="alert('Add Terms page later');return false;">Terms</a>
+
+      <div class="footerBottom">
+        <div>© <span id="yr"></span> Teleringer LLC. All rights reserved. Legal Client Intake is not a law firm and does not provide legal advice.</div>
+        <div>
+          Website design by
+          <a href="https://teleringer.com" target="_blank" rel="noopener">Teleringer</a>
+        </div>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id === "#") return;
+        const el = document.querySelector(id);
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faqItem').forEach(item=>{
+      item.querySelector('.faqQ').addEventListener('click', ()=>{
+        item.classList.toggle('open');
+      });
+    });
+
+    // Character counter
+    const msg = document.getElementById('msg');
+    const count = document.getElementById('count');
+    if(msg && count){
+      msg.addEventListener('input', ()=> count.textContent = String(msg.value.length));
+    }
+
+    // Footer year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Demo form (front-end placeholder)
+    function handleDemoSubmit(e){
+      e.preventDefault();
+      alert("Thanks! Your demo request is captured on this page only right now. Next step is wiring this form to your backend.");
+      return false;
+    }
+  </script>
 </body>
 </html>
