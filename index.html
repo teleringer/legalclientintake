@@ -41,27 +41,8 @@ body{ padding-top: 92px; }
 @media (max-width: 520px){
   body{ padding-top: 72px; }
 }
-.toTop{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:9999;
-  opacity:0;
-  transform: translateY(10px);
-  pointer-events:none;
-  transition: .15s opacity, .15s transform;
-}
 
-.toTop.show{
-  opacity:1;
-  transform: translateY(0);
-  pointer-events:auto;
-}
 
-/* Optional: keep it from overlapping very small screens */
-@media (max-width: 520px){
-  .toTop{ right:14px; bottom:14px; }
-}
 
     .container{max-width:var(--max);margin:0 auto;padding:0 18px}
     .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--muted);font-size:13px}
@@ -431,6 +412,8 @@ body{ padding-top: 92px; }
     bottom: 14px;
   }
 }
+
+
 
   </style>
 </head>
