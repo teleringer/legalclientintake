@@ -404,6 +404,34 @@ body{ padding-top: 92px; }
       .row2{grid-template-columns:1fr}
       .navlinks .link{display:none}
     }
+
+/* Back-to-top floating button */
+.toTop{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: .15s opacity, .15s transform;
+}
+
+.toTop.show{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Keep it neat on small screens */
+@media (max-width: 520px){
+  .toTop{
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
   </style>
 </head>
 
