@@ -6,7 +6,7 @@
   <title>Legal Client Intake | Stop Missing New Client Calls</title>
   <meta name="description" content="AI-powered after-hours legal intake that answers every call, captures case details, and helps schedule consultations—so small law firms stop losing cases to missed calls." />
   <meta name="robots" content="index,follow" />
-  <link rel="icon" href="data:," />
+  <link rel="icon" href="images/favicon.ico" sizes="any">
 
   <style>
     :root{
@@ -102,10 +102,80 @@ body{ padding-top: 92px; }
     max-width:180px;
   }
 }
-    .navlinks{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .navlinks{display:flex;align-items:center;gap:10px}
     .navlinks a{font-weight:700;color:#0f172a;text-decoration:none}
     .navlinks a.link{font-weight:700;color:#0f172a99}
     .navlinks a.link:hover{color:#0f172a}
+
+/* Header: mobile hamburger */
+.menuBtn{
+  display:none;
+  width:44px;height:44px;
+  border-radius:12px;
+  border:1px solid rgba(15,23,42,.18);
+  background:#fff;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+}
+
+.menuBtn span{
+  display:block;
+  width:18px;height:2px;
+  background:#0f172a;
+  position:relative;
+}
+.menuBtn span::before,
+.menuBtn span::after{
+  content:"";
+  position:absolute;left:0;
+  width:18px;height:2px;
+  background:#0f172a;
+}
+.menuBtn span::before{ top:-6px; }
+.menuBtn span::after{ top:6px; }
+
+/* Dark header (scrolled) hamburger styling */
+.topbar.scrolled .menuBtn{
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.20);
+}
+.topbar.scrolled .menuBtn span,
+.topbar.scrolled .menuBtn span::before,
+.topbar.scrolled .menuBtn span::after{
+  background:#fff;
+}
+
+/* Mobile dropdown panel */
+.mobileMenu{
+  display:none;
+  padding:10px 0 14px;
+}
+.mobileMenu .menuPanel{
+  background: rgba(255,255,255,.95);
+  border:1px solid rgba(226,232,240,.9);
+  border-radius:16px;
+  box-shadow:0 18px 45px rgba(2,8,23,.14);
+  padding:12px;
+}
+.topbar.scrolled .mobileMenu .menuPanel{
+  background: rgba(11,18,32,.96);
+  border-color: rgba(255,255,255,.12);
+}
+
+.mobileMenu a{
+  width:100%;
+  justify-content:center;
+}
+
+/* Show hamburger + hide desktop links on mobile */
+@media (max-width: 820px){
+  .nav{ padding:10px 0; }
+  .brand img{ height:44px; max-width:180px; }
+  .navlinks{ display:none; }
+  .menuBtn{ display:inline-flex; }
+  .mobileMenu.open{ display:block; }
+}
 
     /* Scrolled header link colors */
     .topbar.scrolled .navlinks a{color:#ffffff}
@@ -420,22 +490,37 @@ body{ padding-top: 92px; }
 
 <body>
 
-  <!-- Header -->
-  <div class="topbar" id="topbar">
-    <div class="container">
-      <div class="nav">
-        <a class="brand" href="#top" aria-label="Legal Client Intake">
-          <!-- Default = dark logo (for light background) -->
-          <img id="brandLogo" src="images/logo-LCI-dark2.png" alt="Legal Client Intake" />
-        </a>
-        <div class="navlinks">
-  <a class="btn btn-outline" href="#how">How it works</a>
-  <a class="btn btn-primary" href="#demo">Book Demo</a>
-  <a class="btn btn-outline" href="#pricing">Get Pricing</a>
-</div>
+<!-- Header -->
+<div class="topbar" id="topbar">
+  <div class="container">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Legal Client Intake">
+        <img id="brandLogo" src="images/logo-LCI-dark2.png" alt="Legal Client Intake" />
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="navlinks">
+        <a class="btn btn-outline" href="#how">How it works</a>
+        <a class="btn btn-primary" href="#demo">Book Demo</a>
+        <a class="btn btn-outline" href="#pricing">Get Pricing</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button class="menuBtn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div class="mobileMenu" id="mobileMenu">
+      <div class="menuPanel">
+        <a class="btn btn-outline" href="#how">How it works</a>
+        <a class="btn btn-primary" href="#demo">Book Demo</a>
+        <a class="btn btn-outline" href="#pricing">Get Pricing</a>
       </div>
     </div>
   </div>
+</div>
 
   <!-- Hero -->
   <div id="top" class="hero">
@@ -463,7 +548,7 @@ body{ padding-top: 92px; }
         <!-- Right-side hero image box -->
         <div class="heroImageWrap" aria-label="Hero image">
           <div class="heroImageCard">
-            <img src="images/hero.png" alt="Legal Client Intake hero image" />
+            <img src="images/hero2.png" alt="Legal Client Intake hero image" />
           </div>
         </div>
       </div>
@@ -833,9 +918,9 @@ body{ padding-top: 92px; }
     <div class="container">
       <div class="footerGrid">
         <div>
-          <div class="footerBrand">
-            <img src="images/logo-LCI-light2.png" alt="Legal Client Intake" />
-          </div>
+          <a class="footerBrand" href="#top" aria-label="Back to top">
+  <img src="images/logo-LCI-light2.png" alt="Legal Client Intake" />
+</a>
           <p class="footerP">Intelligent after-hours intake for law firms. Never miss a potential client again.</p>
         </div>
 
@@ -928,6 +1013,31 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', syncToTop, { passive: true });
   syncToTop();
 });
+
+// Mobile hamburger menu
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function closeMenu(){
+  if(!mobileMenu || !menuBtn) return;
+  mobileMenu.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', 'false');
+}
+
+if(menuBtn && mobileMenu){
+  menuBtn.addEventListener('click', ()=>{
+    const open = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Close menu when you click a link inside it
+  mobileMenu.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', closeMenu);
+  });
+}
+
+// Also close menu on scroll (keeps things tidy)
+window.addEventListener('scroll', closeMenu, { passive:true });
   </script>
 
 </body>
