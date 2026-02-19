@@ -37,6 +37,32 @@
     a{color:inherit}
     img{max-width:100%;display:block}
 
+body{ padding-top: 92px; }
+@media (max-width: 520px){
+  body{ padding-top: 72px; }
+}
+.toTop{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:9999;
+  opacity:0;
+  transform: translateY(10px);
+  pointer-events:none;
+  transition: .15s opacity, .15s transform;
+}
+
+.toTop.show{
+  opacity:1;
+  transform: translateY(0);
+  pointer-events:auto;
+}
+
+/* Optional: keep it from overlapping very small screens */
+@media (max-width: 520px){
+  .toTop{ right:14px; bottom:14px; }
+}
+
     .container{max-width:var(--max);margin:0 auto;padding:0 18px}
     .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--muted);font-size:13px}
     .btn{
@@ -61,13 +87,15 @@
     .btn-gold:hover{filter:brightness(.98);box-shadow:0 12px 26px rgba(246,212,75,.25)}
 
     /* Header */
-    .topbar{
-      position:sticky;top:0;z-index:50;
-      background:rgba(255,255,255,.78);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(226,232,240,.65);
-      transition: .2s background, .2s border-color;
-    }
+.topbar{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:9999;
+  background:rgba(255,255,255,.78);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(226,232,240,.65);
+  transition: .2s background, .2s border-color;
+}
     /* When scrolling, header becomes dark and we swap to light logo */
     .topbar.scrolled{
       background: rgba(11,18,32,.92);
@@ -873,8 +901,21 @@
         brandLogo.src = "images/logo-LCI-dark2.png";
       }
     }
+// Back-to-top button (desktop + works everywhere)
+const toTopBtn = document.getElementById('toTopBtn');
+
+function syncToTop(){
+  const show = window.scrollY > 400;
+  if(toTopBtn) toTopBtn.classList.toggle('show', show);
+}
+
+window.addEventListener('scroll', syncToTop, { passive: true });
+syncToTop();
     window.addEventListener('scroll', syncHeader, { passive: true });
     syncHeader();
   </script>
+<a href="#top" class="btn btn-outline toTop" id="toTopBtn" aria-label="Back to top">
+  ↑ Top
+</a>
 </body>
 </html>
