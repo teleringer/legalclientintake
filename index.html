@@ -249,6 +249,24 @@ body{ padding-top: 92px; }
     .iconCard p{margin:0;color:var(--muted);font-size:14px}
 
     /* Sections */
+/* Sections */
+section{
+  padding:52px 0;
+  position:relative;
+  background: transparent;
+}
+
+/* Alternating section background (adds pizzazz without being loud) */
+section.alt{
+  background:
+    radial-gradient(900px 420px at 50% 0%, rgba(15,118,110,.10), rgba(255,255,255,0) 62%),
+    linear-gradient(180deg, rgba(15,118,110,.06), rgba(255,255,255,0) 55%);
+  border-top: 1px solid rgba(226,232,240,.75);
+  border-bottom: 1px solid rgba(226,232,240,.75);
+}
+
+/* Don’t mess with the CTA band (it already has its own background) */
+section.ctaBand{ border: none; }
     section{padding:52px 0}
     .sectionTitle{font-size:36px;line-height:1.12;margin:0 0 10px;text-align:center}
     .sectionSub{margin:0 auto 28px;max-width:72ch;color:var(--muted);text-align:center}
@@ -583,7 +601,7 @@ body{ padding-top: 92px; }
   </div>
 
   <!-- Problems -->
-  <section>
+  <section class="alt">
     <div class="container">
       <h2 class="sectionTitle">Missed Calls = Lost Cases</h2>
       <p class="sectionSub">
@@ -656,7 +674,7 @@ body{ padding-top: 92px; }
   </section>
 
   <!-- What it captures -->
-  <section>
+  <section class="alt">
     <div class="container">
       <h2 class="sectionTitle">What It Captures</h2>
       <p class="sectionSub">
@@ -713,7 +731,7 @@ body{ padding-top: 92px; }
   </section>
 
   <!-- Pricing -->
-  <section id="pricing">
+  <section id="pricing" class="alt">
     <div class="container">
       <h2 class="sectionTitle">Simple Monthly Pricing.</h2>
       <p class="sectionSub">
