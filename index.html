@@ -879,6 +879,10 @@ body{ padding-top: 92px; }
     </div>
   </footer>
 
+<a href="#top" class="btn btn-outline toTop" id="toTopBtn" aria-label="Back to top">
+  ↑ Top
+</a>
+
   <script>
     // Smooth scroll for internal links
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -930,20 +934,18 @@ body{ padding-top: 92px; }
       }
     }
 // Back-to-top button (desktop + works everywhere)
-const toTopBtn = document.getElementById('toTopBtn');
+window.addEventListener('DOMContentLoaded', () => {
+  const toTopBtn = document.getElementById('toTopBtn');
 
-function syncToTop(){
-  const show = window.scrollY > 400;
-  if(toTopBtn) toTopBtn.classList.toggle('show', show);
-}
+  function syncToTop(){
+    const show = window.scrollY > 400;
+    if(toTopBtn) toTopBtn.classList.toggle('show', show);
+  }
 
-window.addEventListener('scroll', syncToTop, { passive: true });
-syncToTop();
-    window.addEventListener('scroll', syncHeader, { passive: true });
-    syncHeader();
+  window.addEventListener('scroll', syncToTop, { passive: true });
+  syncToTop();
+});
   </script>
-<a href="#top" class="btn btn-outline toTop" id="toTopBtn" aria-label="Back to top">
-  ↑ Top
-</a>
+
 </body>
 </html>
